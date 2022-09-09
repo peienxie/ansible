@@ -1,0 +1,45 @@
+---
+- name: Install git, build-essential, cmake
+  become: true
+  apt:
+    pkg:
+      - git
+      - build-essential
+      - cmake
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Install fzf, ripgrep, fd-find, tldr, xclip
+  become: true
+  apt:
+    pkg:
+      - fzf
+      - ripgrep
+      - fd-find
+      - tldr
+      - xclip
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Install python3, pip, nodejs, npm, rust, cargo
+  become: true
+  apt:
+    pkg:
+      - python3
+      - python3-pip
+      - python-is-python3
+      - nodejs
+      - npm
+      - rustc
+      - cargo
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Install gh, httpie
+  become: true
+  apt:
+    pkg:
+      - gh
+      - httpie
+    update_cache: true
+    cache_valid_time: 3600

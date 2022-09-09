@@ -1,0 +1,58 @@
+---
+- name: Install zsh
+  become: true
+  apt:
+    pkg:
+      - zsh
+      - git
+      - curl
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Change default shell to zsh
+  become: true
+  command: chsh -s /bin/zsh {{ lookup('env', 'USER') }}
+  register: chsh_stat
+  failed_when: chsh_stat.rc > 0
+  changed_when: chsh_stat.rc == 0
+
+- name: Check .oh-my-zsh exists
+  stat:
+    path: "{{ lookup('env', 'HOME') }}/.oh-my-zsh"
+  register: ohmyzsh
+
+- name: Install oh-my-zsh
+  shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" "--unattended"
+  when: not ohmyzsh.stat.exists
+
+- name: Install powerlevel10k
+  git:
+    repo: https://github.com/romkatv/powerlevel10k.git
+    dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/themes/powerlevel10k"
+    depth: 1
+
+- name: Make sure ~/.local/share/fonts directory exists
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.local/share/fonts/"
+    state: directory
+
+- name: Install MesloLGS fonts
+  become: true
+  get_url:
+    url: https://github.com/romkatv/powerlevel10k-media/raw/master/{{ item }}
+    dest: "{{ lookup('env', 'HOME') }}/.local/share/fonts/"
+  with_items:
+    - MesloLGS%20NF%20Regular.ttf
+    - MesloLGS%20NF%20Bold.ttf
+    - MesloLGS%20NF%20Italic.ttf
+    - MesloLGS%20NF%20Bold%20Italic.ttf
+
+- name: Install zsh-z
+  git:
+    repo: https://github.com/agkozak/zsh-z
+    dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/plugins/zsh-z"
+
+- name: Install zsh-autosuggestions
+  git:
+    repo: https://github.com/zsh-users/zsh-autosuggestions
+    dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"

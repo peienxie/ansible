@@ -1,0 +1,28 @@
+---
+- name: Add neovim ppa repository
+  become: true
+  apt_repository:
+    repo: "ppa:neovim-ppa/unstable"
+
+- name: Install neovim
+  become: true
+  apt:
+    name: "neovim"
+    update_cache: true
+
+- name: Clone packer
+  git:
+    repo: "https://github.com/wbthomason/packer.nvim"
+    dest: "{{ lookup('env', 'HOME') }}/.local/share/nvim/site/pack/packer/start/packer.nvim"
+    force: true
+
+- name: Install python3 provider
+  shell: pip3 install --upgrade pynvim
+#- name: Install nodejs provider
+#  shell: npm install -g neovim
+#
+#- name: Run PackerSync
+#  shell: nvim --headless +PackerSync +qa
+#
+#- name: Run TSInstall all
+#  shell: nvim --headless +'TSInstall all' +qa

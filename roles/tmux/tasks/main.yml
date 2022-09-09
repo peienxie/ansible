@@ -1,0 +1,14 @@
+---
+- name: Install tmux
+  become: true
+  apt:
+    pkg:
+      - tmux
+      - git
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Install tmux plugin manager
+  git:
+    repo: https://github.com/tmux-plugins/tpm
+    dest: "{{ lookup('env', 'HOME') }}/.tmux/plugins/tpm"

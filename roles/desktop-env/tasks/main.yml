@@ -1,0 +1,29 @@
+---
+- name: Install i3
+  become: true
+  apt:
+    pkg:
+      - i3
+      - i3blocks
+      - i3lock
+      - scrot
+      - imagemagick
+      - nitrogen
+      - picom
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Install fcitx-chewing, fcitx-mozc
+  become: true
+  apt:
+    pkg:
+      - fcitx
+      - fcitx-chewing
+      - fcitx-mozc
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Install Chrome
+  become: true
+  apt:
+    deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb

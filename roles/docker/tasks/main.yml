@@ -1,0 +1,6 @@
+---
+- name: Install Docker
+  become: true
+  apt:
+    pkg:
+      - docker.io

@@ -1,0 +1,9 @@
+- name: Setup my workspace
+  hosts: local
+  roles:
+    - role: tools
+    - role: zsh
+    - role: tmux
+    - role: neovim
+    - role: docker
+    - role: desktop-env

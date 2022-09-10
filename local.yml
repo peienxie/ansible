@@ -1,7 +1,7 @@
 - name: Setup my workspace
   hosts: local
   roles:
-    - role: tools
+    - role: core
     - role: zsh
     - role: tmux
     - role: neovim

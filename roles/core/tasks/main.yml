@@ -1,0 +1,7 @@
+---
+- name: Install development tools
+  include_tasks: "{{ item }}"
+  loop:
+    - build-tools.yml
+    - utility.yml
+    - languages.yml

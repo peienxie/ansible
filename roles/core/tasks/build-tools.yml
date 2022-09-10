@@ -1,0 +1,10 @@
+---
+- name: Install git, build-essential, cmake
+  become: true
+  apt:
+    pkg:
+      - git
+      - build-essential
+      - cmake
+    update_cache: true
+    cache_valid_time: 3600

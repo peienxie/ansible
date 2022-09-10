@@ -1,0 +1,21 @@
+---
+- name: Install fzf, ripgrep, fd-find, tldr, xclip
+  become: true
+  apt:
+    pkg:
+      - fzf
+      - ripgrep
+      - fd-find
+      - tldr
+      - xclip
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Install gh, httpie
+  become: true
+  apt:
+    pkg:
+      - gh
+      - httpie
+    update_cache: true
+    cache_valid_time: 3600

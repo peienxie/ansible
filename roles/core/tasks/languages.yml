@@ -7,25 +7,27 @@
       - python3-pip
       - python-is-python3
     update_cache: true
-    cache_valid_time: 3600
 
-- name: Install nodejs, npm
+- name: Add node.js LTS source
+  shell: curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+
+- name: Install node.js, npm
   become: true
   apt:
     pkg:
       - nodejs
       - npm
     update_cache: true
-    cache_valid_time: 3600
 
 - name: Install yarn
   shell: npm install -g yarn
 
-- name: Install rustc, cargo
+- name: Install rust
+  shell: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+- name: Install cargo
   become: true
   apt:
     pkg:
-      - rustc
       - cargo
     update_cache: true
-    cache_valid_time: 3600

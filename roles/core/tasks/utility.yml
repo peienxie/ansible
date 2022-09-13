@@ -11,6 +11,9 @@
     update_cache: true
     cache_valid_time: 3600
 
+- name: Symlink fdfind to fd
+  shell: ls -s $(which fdfind) ~/.local/bin/fd
+
 - name: Install gh, httpie
   become: true
   apt:
